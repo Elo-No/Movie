@@ -1,22 +1,33 @@
 from rest_framework import serializers
-from watchlist_app.models import Watchlist,StreamPlatform
+from watchlist_app.models import Watchlist, StreamPlatform, Review
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = '__all__'
+
 
 class WatchlistSerializer(serializers.ModelSerializer):
+    review = ReviewSerializer(many=True, read_only=True)
+
     class Meta:
         model = Watchlist
         fields = '__all__'
+
+
 class StreamPlatformSerializer(serializers.ModelSerializer):
-    # watchlist = WatchlistSerializer(many=True , read_only=True)
+    watchlist = WatchlistSerializer(many=True, read_only=True)
     # watchlist = serializers.StringRelatedField(many=True)
     # watchlist = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    watchlist =serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='WatchDetail'
-    )
+    # watchlist =serializers.HyperlinkedRelatedField(
+    #     many = True,
+    #     read_only = True,
+    #     view_name = 'WatchDetail'
+    # )
     class Meta:
-        model = StreamPlatform
-        fields = '__all__'
+        model=StreamPlatform
+        fields='__all__'
 
 
 
@@ -64,11 +75,10 @@ class StreamPlatformSerializer(serializers.ModelSerializer):
 
 #     def create(self,validate_data):
 #         return Movie.objects.create(**validate_data)
-    
+
 #     def update(self,instance,validate_data):
-#         instance.name = validate_data.get('name',instance.name) 
-#         instance.description = validate_data.get('description',instance.description) 
-#         instance.active = validate_data.get('active',instance.active) 
+#         instance.name = validate_data.get('name',instance.name)
+#         instance.description = validate_data.get('description',instance.description)
+#         instance.active = validate_data.get('active',instance.active)
 #         instance.save()
 #         return instance
-    
