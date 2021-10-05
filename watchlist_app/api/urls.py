@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.urls import path,include
 # from .views import MovieListView,MovieDetailView
-from .views import WatchListAPIView,WatchDetailAPIView,StreamPlatformlistAPIView,StreamPlatformDetailAPIView
+from .views import WatchListAPIView,WatchDetailAPIView,StreamPlatformlistAPIView,StreamPlatformDetailAPIView,ReviewList
 
 urlpatterns = [
     # path('list/',MovieListView,name='MovieList'),
@@ -12,4 +12,7 @@ urlpatterns = [
 
     path('platformlist/',StreamPlatformlistAPIView.as_view(),name='StreamPlatformlist'),
     path('platformlist/<int:pk>/',StreamPlatformDetailAPIView.as_view(),name='StreamPlatformDetail'),
+
+    path('review/',ReviewList.as_view(),name='ReviewList'),
+
 ]
