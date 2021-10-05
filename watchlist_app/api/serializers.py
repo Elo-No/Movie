@@ -3,10 +3,14 @@ from watchlist_app.models import Movie
 
 
 class MovieSerializer(serializers.ModelSerializer):
+    len_name = serializers.SerializerMethodField()
     class Meta:
         model = Movie
         fields = '__all__'
-
+    def get_len_name(self,objects):
+        length = len(objects.name)
+        return length
+        
     def validate(self,data):
         if data['name'] == data['description']:
             raise serializers.ValidationError("name and description shouldn't be the same")
