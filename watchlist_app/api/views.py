@@ -16,7 +16,7 @@ class MovieListAPIView(APIView):
             serializer.save()
             return Response(serializer.data)
         else:
-            return Response(serializer.error,status=status.HTTP_404_NOT_FOUND)
+            return Response(serializer.errors,status=status.HTTP_404_NOT_FOUND)
 
 class MovieDetailAPIView(APIView):
     def get(self, request,pk):
