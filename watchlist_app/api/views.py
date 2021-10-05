@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 class StreamPlatformlistAPIView(APIView):
     def get(self, request):
         platfoems = StreamPlatform.objects.all()
-        serializers =StreamPlatformSerializer(platfoems, many=True)
+        serializers =StreamPlatformSerializer(platfoems, many=True,context={'request': request})
         return Response(serializers.data)
     def post(self, request):
         serializer = StreamPlatformSerializer(data=request.data)
